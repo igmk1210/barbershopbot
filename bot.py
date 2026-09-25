@@ -286,7 +286,7 @@ async def busy_slot(callback: CallbackQuery) -> None:
 
 @dp.callback_query(F.data.startswith("slot:"))
 async def choose_slot(callback: CallbackQuery, state: FSMContext) -> None:
-    _, iso, t = callback.data.split(":")
+    _, iso, t = callback.data.split(":", 2)
     if t in bookings.get(iso, {}):
         await callback.answer("Это время уже заняли, выберите другое", show_alert=True)
         await callback.message.edit_reply_markup(reply_markup=times_keyboard(iso))
